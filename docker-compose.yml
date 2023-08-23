@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+    app:
+        container_name: 'stats_score_app'
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        expose:
+            - ${PHP_PORT_EXPOSE:-9000}
+        volumes:
+            - .:/app
+        networks:
+            - local
+
+networks:
+    local:
+        driver: bridge

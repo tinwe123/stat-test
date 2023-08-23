@@ -29,9 +29,4 @@ final class Item
     {
         return $this->sell_in < 0;
     }
-
-    public function isMaximumQualityReached(int $maxQuality): bool
-    {
-        return $this->quality >= $maxQuality;
-    }
 }

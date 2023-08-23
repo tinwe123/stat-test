@@ -6,7 +6,7 @@ namespace App\Goods;
 
 use App\Item;
 
-final class BackstagePasses implements GoodInterface
+final class BackstagePasses extends AbstractGood implements GoodInterface
 {
     public function endDay(Item $item): void
     {
@@ -17,7 +17,7 @@ final class BackstagePasses implements GoodInterface
             return;
         }
 
-        if ($item->isMaximumQualityReached(50)) {
+        if ($this->isMaximumQualityReached($item)) {
             return;
         }
 
@@ -30,14 +30,19 @@ final class BackstagePasses implements GoodInterface
             $item->quality += 3;
         }
 
-        if ($item->isMaximumQualityReached(50)) {
-            $item->quality = 50;
+        if ($this->isMaximumQualityPassed($item)) {
+            $this->setMaximumQuality($item);
         }
     }
 
     public function isSupported(Item $item): bool
     {
         return $item->name === 'Backstage passes to a TAFKAL80ETC concert';
+    }
+
+    protected function getMaximumQuality(): int
+    {
+        return 50;
     }
 }
 

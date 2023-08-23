@@ -6,18 +6,19 @@ namespace App\Goods;
 
 use App\Item;
 
-final class Common implements GoodInterface
+final class Common extends AbstractGood implements GoodInterface
 {
     public function endDay(Item $item): void
     {
         $item->sell_in--;
 
-        if ($item->isMaximumQualityReached(50)) {
+        if ($this->isMaximumQualityReached($item)) {
             return;
         }
 
         if (!$item->isSellDateHasPassed()) {
-            $item->quality++;
+            $item->quality--;
+            return;
         }
 
         $item->quality -= 2;
@@ -29,5 +30,10 @@ final class Common implements GoodInterface
     public function isSupported(Item $item): bool
     {
         return true;
+    }
+
+    protected function getMaximumQuality(): int
+    {
+        return 50;
     }
 }

@@ -2,6 +2,7 @@
 
 use App\GildedRose;
 use App\Item;
+use App\Provider\GoodsProvider;
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
@@ -18,7 +19,7 @@ class GildedRoseTest extends TestCase
     {
         $item = new Item($name, $sellIn, $quality);
 
-        $gildedRose = new GildedRose();
+        $gildedRose = new GildedRose(new GoodsProvider());
         $gildedRose->updateQuality($item);
 
         $this->assertEquals($expectedSellIn, $item->sell_in);

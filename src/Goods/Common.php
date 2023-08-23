@@ -10,18 +10,18 @@ final class Common extends AbstractGood implements GoodInterface
 {
     public function endDay(Item $item): void
     {
-        $item->sell_in--;
+        $item->decreaseSellIn(1);
 
         if ($this->isMaximumQualityReached($item)) {
             return;
         }
 
         if (!$item->isSellDateHasPassed()) {
-            $item->quality--;
+            $item->decreaseQuality(1);
             return;
         }
 
-        $item->quality -= 2;
+        $item->decreaseQuality(2);
         if ($item->quality < 0) {
             $item->quality = 0;
         }

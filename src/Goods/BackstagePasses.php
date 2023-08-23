@@ -10,7 +10,7 @@ final class BackstagePasses extends AbstractGood implements GoodInterface
 {
     public function endDay(Item $item): void
     {
-        $item->sell_in--;
+        $item->decreaseSellIn(1);
 
         if ($item->isSellDateHasPassed()) {
             $item->quality = 0;
@@ -23,11 +23,11 @@ final class BackstagePasses extends AbstractGood implements GoodInterface
 
         $daysLeft = $item->howManyDaysLeft();
         if ($daysLeft >= 10) {
-            $item->quality++;
+            $item->increaseQuality(1);
         } elseif ($daysLeft > 5) {
-            $item->quality += 2;
+            $item->increaseQuality(2);
         } else {
-            $item->quality += 3;
+            $item->increaseQuality(3);
         }
 
         if ($this->isMaximumQualityPassed($item)) {

@@ -10,19 +10,19 @@ final class AgedBrie extends AbstractGood implements GoodInterface
 {
     public function endDay(Item $item): void
     {
-        $item->sell_in--;
+        $item->decreaseSellIn(1);
 
         if ($this->isMaximumQualityReached($item)) {
             return;
         }
 
-        $item->quality++;
+        $item->increaseQuality(1);
         if ($this->isMaximumQualityReached($item)) {
             return;
         }
 
         if ($item->isSellDateHasPassed()) {
-            $item->quality++;
+            $item->increaseQuality(1);
         }
     }
 
